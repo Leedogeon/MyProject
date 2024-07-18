@@ -3,6 +3,8 @@
 #include "Components/CapsuleComponent.h"
 #include "Camera/CameraComponent.h"
 
+#include "MyAnimInstance.h"
+
 
 
 // Sets default values
@@ -38,6 +40,9 @@ void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	auto AnimInstance = GetMesh()->GetAnimInstance();
+	MyAnimInstance = Cast<UMyAnimInstance>(AnimInstance);
+
 }
 
 // Called every frame
@@ -58,8 +63,9 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAxis(TEXT("LookLeftRight"), this, &AMyCharacter::MouseLookLeftRight);
 	PlayerInputComponent->BindAxis(TEXT("LookUpDown"), this, &AMyCharacter::MouseLookUpDown);
 
-	//AMyCharacter::Jump == ACharacter::Jump
+
 	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &AMyCharacter::Jump);
+	PlayerInputComponent->BindAction(TEXT("Fire"), EInputEvent::IE_Pressed, this, &AMyCharacter::Fire);
 
 }
 
@@ -81,5 +87,15 @@ void AMyCharacter::MouseLookLeftRight(float Value)
 void AMyCharacter::MouseLookUpDown(float Value)
 {
 	AddControllerPitchInput(Value);
+}
+
+void AMyCharacter::Fire()
+{
+	if (IsValid(MyAnimInstance))
+	{
+		MyAnimInstance->PlayFireMontage();
+		
+	}
+
 }
 

@@ -1,12 +1,19 @@
 #include "MyAnimInstance.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h" 
+
 #include "MyCharacter.h"
 
-#include "GameFramework/CharacterMovementComponent.h"
-#include "Kismet/KismetMathLibrary.h" // 호출
 
-void UMyAnimInstance::NativeInitializeAnimation()
+UMyAnimInstance::UMyAnimInstance()
 {
-	Super::NativeInitializeAnimation();
+	//생성자에 추가
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> AnimMontage(TEXT("/Script/Engine.AnimMontage'/Game/ParagonSparrow/Characters/Heroes/Sparrow/Animations/Primary_Fire_Med_Montage.Primary_Fire_Med_Montage'"));
+
+	if (AnimMontage.Succeeded())
+	{
+		FireMontage = AnimMontage.Object;
+	}
 }
 
 void UMyAnimInstance::NativeBeginPlay()
@@ -50,3 +57,14 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 }
 
+void UMyAnimInstance::PlayFireMontage()
+{
+	if (IsValid(FireMontage))
+	{
+		if (!Montage_IsPlaying(FireMontage))
+		{
+			Montage_Play(FireMontage);
+
+		}
+	}
+}

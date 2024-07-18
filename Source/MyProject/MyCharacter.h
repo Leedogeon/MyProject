@@ -26,6 +26,10 @@ private:
 	class USpringArmComponent* SpringArm;
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* Camera;
+	UPROPERTY(VisibleAnywhere)
+	class UMyAnimInstance* MyAnimInstance;
+
+
 
 public:
 	AMyCharacter();
@@ -41,5 +45,6 @@ public:
 	void KeyLeftRight(float Value);
 	void MouseLookLeftRight(float Value);
 	void MouseLookUpDown(float Value);
+	void Fire();
 };
 
