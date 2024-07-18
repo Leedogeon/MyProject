@@ -4,6 +4,7 @@
 #include "Camera/CameraComponent.h"
 
 #include "MyAnimInstance.h"
+#include "Arrow.h"
 
 
 
@@ -21,6 +22,7 @@ AMyCharacter::AMyCharacter()
 
 	SpringArm->TargetArmLength = 400.f;
 	SpringArm->SetRelativeRotation(FRotator(-35.f, 0.f, 0.f));
+	SpringArm->SocketOffset = FVector(0.f, 120.f, 75.f);
 	SpringArm->bUsePawnControlRotation = true;
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SkeletalMesh(TEXT("/Script/Engine.SkeletalMesh'/Game/ParagonSparrow/Characters/Heroes/Sparrow/Meshes/Sparrow.Sparrow'"));
@@ -32,6 +34,12 @@ AMyCharacter::AMyCharacter()
 	}
 
 
+	static ConstructorHelpers::FClassFinder<UAnimInstance> AnimInstance(TEXT("/Script/Engine.AnimBlueprint'/Game/Animations/ABP_MyCharacter.ABP_MyCharacter_C'"));
+	if (AnimInstance.Succeeded())
+	{
+		GetMesh()->SetAnimClass(AnimInstance.Class);
+
+	}
 
 }
 
@@ -94,7 +102,8 @@ void AMyCharacter::Fire()
 	if (IsValid(MyAnimInstance))
 	{
 		MyAnimInstance->PlayFireMontage();
-		
+
+		auto MyArrow = GetWorld()->SpawnActor<AArrow>(FVector::ZeroVector, FRotator::ZeroRotator);
 	}
 
 }
