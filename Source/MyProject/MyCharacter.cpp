@@ -102,8 +102,14 @@ void AMyCharacter::Fire()
 	if (IsValid(MyAnimInstance))
 	{
 		MyAnimInstance->PlayFireMontage();
+		FTransform SocketTransform = GetMesh()->GetSocketTransform(FName("ArrowSocket"));
+		FVector SocketLocation = SocketTransform.GetLocation();
+		FRotator SocketRotation = SocketTransform.GetRotation().Rotator();
+		FActorSpawnParameters params;
+		params.Owner = this;
 
-		auto MyArrow = GetWorld()->SpawnActor<AArrow>(FVector::ZeroVector, FRotator::ZeroRotator);
+		auto MyArrow = GetWorld()->SpawnActor<AArrow>(SocketLocation, SocketRotation, params);
+
 	}
 
 }
