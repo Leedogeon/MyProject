@@ -12,9 +12,13 @@ class MYPROJECT_API AArrow : public AActor
 	GENERATED_BODY()
 private:
 	UPROPERTY(VisibleAnywhere)
+	USceneComponent* DefaultRoot;
+	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* Mesh;
 	UPROPERTY(VisibleAnywhere)
 	class UBoxComponent* CollisionMesh;
+	UPROPERTY(VisibleAnywhere)
+	class UProjectileMovementComponent* ProjectileMovementComponent;
 	
 public:	
 	// Sets default values for this actor's properties

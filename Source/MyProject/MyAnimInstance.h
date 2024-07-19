@@ -24,6 +24,19 @@ private:
 	float YawOffset;
 	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	FRotator AimRotation;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	float RotateYaw;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	FRotator MovingRotation;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	FRotator PrevRotation;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	float PrevDistanceCurve;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	float DistanceCurve;
+	UPROPERTY(Category = "Animation", EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	float DeltaDistanceCurve;
+
 
 private:
 	UPROPERTY(VisibleAnywhere)
@@ -33,16 +46,12 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UAnimMontage* FireMontage;
 
-
-
 public:
 	UMyAnimInstance();
-
 public:
 	virtual void NativeBeginPlay() override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
-
 public:
-	void PlayFireMontage();//외부에서 몽타지 play해줄 함수
+	void PlayFireMontage();
 };
 
