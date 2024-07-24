@@ -1,7 +1,7 @@
 #include "MyEnemy.h"
 #include "Components/CapsuleComponent.h"
 #include "MyAIController.h"
-
+#include "EnemyAnimInstance.h"
 // Sets default values
 AMyEnemy::AMyEnemy()
 {
@@ -19,6 +19,12 @@ AMyEnemy::AMyEnemy()
 
 	}
 
+	static ConstructorHelpers::FClassFinder<UAnimInstance> AI(TEXT("/Script/Engine.AnimBlueprint'/Game/Animation/ABP_Enemy.ABP_Enemy_C'"));
+	if (AI.Succeeded())
+	{
+		GetMesh()->SetAnimClass(AI.Class);
+	}
+
 	AIControllerClass = AMyAIController::StaticClass();
 
 
@@ -28,7 +34,8 @@ AMyEnemy::AMyEnemy()
 void AMyEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-
+	EnemyAnimInstance = Cast<UEnemyAnimInstance>(GetMesh()->GetAnimInstance());
+	EnemyAnimInstance->OnMontageEnded.AddDynamic(this, &AMyEnemy::OnAttackMontageEnded);
 }
 
 // Called every frame
@@ -44,4 +51,19 @@ void AMyEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
+
+void AMyEnemy::Attack()
+{
+	
+	if (IsValid(EnemyAnimInstance))
+	{
+		EnemyAnimInstance->PlayAttackMontage();
+	}
+}
+
+void AMyEnemy::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
+{
+	UE_LOG(LogTemp, Log, TEXT("OnAttackMontageEnded"));
+}
+
 

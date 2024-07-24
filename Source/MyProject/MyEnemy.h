@@ -11,6 +11,9 @@ class MYPROJECT_API AMyEnemy : public ACharacter
 {
 	GENERATED_BODY()
 
+private:
+	UPROPERTY(VisibleAnywhere)
+	class UEnemyAnimInstance* EnemyAnimInstance;
 public:
 	// Sets default values for this character's properties
 	AMyEnemy();
@@ -25,5 +28,8 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
+public:
+	void Attack();
+	UFUNCTION()
+	void OnAttackMontageEnded(UAnimMontage* Montage,bool bInterrupted);
 };
