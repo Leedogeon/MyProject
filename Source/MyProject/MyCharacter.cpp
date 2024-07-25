@@ -5,7 +5,7 @@
 
 #include "MyAnimInstance.h"
 #include "Arrow.h"
-
+#include "MyActorComponent.h"
 
 
 // Sets default values
@@ -40,6 +40,8 @@ AMyCharacter::AMyCharacter()
 		GetMesh()->SetAnimClass(AnimInstance.Class);
 
 	}
+
+	MyActorComponent = CreateDefaultSubobject<UMyActorComponent>(TEXT("MyActorComponent"));
 
 }
 

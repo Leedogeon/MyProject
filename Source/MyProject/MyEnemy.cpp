@@ -54,16 +54,19 @@ void AMyEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void AMyEnemy::Attack()
 {
-	
-	if (IsValid(EnemyAnimInstance))
+	if (!IsAttacking)
 	{
-		EnemyAnimInstance->PlayAttackMontage();
+		IsAttacking = true;
+		if (IsValid(EnemyAnimInstance))
+		{
+			EnemyAnimInstance->PlayAttackMontage();
+		}
 	}
 }
 
 void AMyEnemy::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
-	UE_LOG(LogTemp, Log, TEXT("OnAttackMontageEnded"));
+	IsAttacking = false;
 }
 
 

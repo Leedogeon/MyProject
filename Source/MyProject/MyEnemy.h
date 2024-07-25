@@ -10,10 +10,14 @@ UCLASS()
 class MYPROJECT_API AMyEnemy : public ACharacter
 {
 	GENERATED_BODY()
-
 private:
 	UPROPERTY(VisibleAnywhere)
 	class UEnemyAnimInstance* EnemyAnimInstance;
+private:
+	bool IsAttacking = false;
+public:
+	void SetIsAttacking(bool Value) { IsAttacking = Value; }
+	bool GetIsAttacking() const { return IsAttacking; }
 public:
 	// Sets default values for this character's properties
 	AMyEnemy();
@@ -22,7 +26,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -31,5 +35,5 @@ public:
 public:
 	void Attack();
 	UFUNCTION()
-	void OnAttackMontageEnded(UAnimMontage* Montage,bool bInterrupted);
+	void OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
 };
