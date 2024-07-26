@@ -15,12 +15,12 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Info", Meta = (AllowPrivateAccess = true))
 	int32 Level;
 	UPROPERTY(EditAnywhere, Category = "Info", Meta = (AllowPrivateAccess = true))
-	int32 MaxHP;
+	int32 MaxHp;
 	UPROPERTY(EditAnywhere, Category = "Info", Meta = (AllowPrivateAccess = true))
-	int32 HP;
+	int32 Hp;
 public:
 	int32 GetLevel() const { return Level; }
-	int32 GetHP() const { return HP; }
+	int32 GetHP() const { return Hp; }
 public:	
 	// Sets default values for this component's properties
 	UMyActorComponent();
