@@ -15,13 +15,12 @@ UMyGameInstance::UMyGameInstance()
 void UMyGameInstance::Init()
 {
 	Super::Init();
-	UE_LOG(LogTemp, Log, TEXT("Character Data : %d"), GetCharacterData(1)->MaxHP);
-
+	UE_LOG(LogTemp, Log, TEXT("Character Data : %d"),GetCharacterData(1)->MaxHp);
 
 }
 
 FCharacterData* UMyGameInstance::GetCharacterData(int32 Level)
 {
 	FName RowName = FName(*FString::Printf(TEXT("Lv%d"), Level));
-	return CharacterDataTable->FindRow<FCharacterData>(RowName, Text(""));
+	return CharacterDataTable->FindRow<FCharacterData>(RowName, TEXT(""));
 }
